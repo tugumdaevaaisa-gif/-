@@ -18,7 +18,7 @@ function nextScene(sceneNumber) {
         nextSceneElement.classList.add('active');
         // Особые действия при активации
         if (sceneNumber === 2) resetStory();
-        if (sceneNumber === 5) checkRsvpStatus();
+        if (sceneNumber === 5) initTimer(); // таймер запускается при переходе
     }
 }
 
@@ -59,68 +59,13 @@ function revealPhoto(item) {
     item.classList.add('revealed');
 }
 
-// ----------------- RSVP -----------------
-function checkRsvpStatus() {
-    const form = document.getElementById('rsvp-form');
-    const success = document.getElementById('rsvp-success');
-    if (localStorage.getItem("rsvp_submitted") === "true") {
-        form.classList.add('hidden');
-        success.classList.remove('hidden');
-        success.querySelector('h3').textContent = 'Вы уже ответили!';
-        success.querySelector('p').textContent = 'Рады видеть вас на нашем празднике.';
-    }
-}
-
-function sendRsvp(event) {
-    event.preventDefault();
-    const form = document.getElementById('rsvp-form');
-    const success = document.getElementById('rsvp-success');
-    const submitButton = form.querySelector('.btn-submit');
-
-    if (localStorage.getItem("rsvp_submitted") === "true") {
-        alert("Вы уже отправляли ответ с этого устройства.");
-        return;
-    }
-
-    if (submitButton) submitButton.disabled = true;
-
-    const formData = new FormData(form);
-    formData.append("access_key", "e7d0e149-5d47-4ca0-b82c-73d5806cbdd1"); // ваш ключ
-    formData.append("subject", "Новый ответ RSVP на свадьбу Максима и Дианы!");
-
-    const drinks = [];
-    form.querySelectorAll('input[name="drinks"]:checked').forEach((checkbox) => {
-        drinks.push(checkbox.value);
-    });
-    formData.append("Выбранные напитки", drinks.length > 0 ? drinks.join(', ') : 'Не выбрано');
-
-    fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData
-    })
-    .then(async (response) => {
-        if (response.status === 200) {
-            localStorage.setItem("rsvp_submitted", "true");
-            form.classList.add('hidden');
-            success.classList.remove('hidden');
-            success.querySelector('h3').textContent = 'Спасибо за ваш ответ!';
-            success.querySelector('p').textContent = 'Ваши данные успешно переданы.';
-        } else {
-            let json = await response.json();
-            alert("Ошибка: " + json.message);
-            if (submitButton) submitButton.disabled = false;
-        }
-    })
-    .catch(() => {
-        alert("Что-то пошло не так. Проверьте подключение к интернету.");
-        if (submitButton) submitButton.disabled = false;
-    });
-}
-
 // ----------------- ТАЙМЕР -----------------
+let timerInterval = null;
+
 function initTimer() {
+    if (timerInterval) clearInterval(timerInterval); // очищаем предыдущий, если есть
     const weddingDate = new Date("September 12, 2026 17:00:00").getTime();
-    const timerInterval = setInterval(updateTimer, 1000);
+    timerInterval = setInterval(updateTimer, 1000);
 
     function updateTimer() {
         const now = new Date().getTime();
@@ -149,15 +94,20 @@ function initTimer() {
 
 // ----------------- ПЕРЕЗАПУСК -----------------
 function restart() {
+    // Останавливаем таймер
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = null;
+
+    // Сбрасываем сцены
     document.querySelectorAll('.scene').forEach(scene => scene.classList.remove('active'));
     document.getElementById('scene-1').classList.add('active');
-    // Сбросить RSVP (если нужно) – закомментируйте, если не требуется
-    // localStorage.removeItem("rsvp_submitted");
+
+    // Сбрасываем слайды
+    resetStory();
 }
 
-// Инициализация
+// Инициализация (выполняется при загрузке)
 document.addEventListener("DOMContentLoaded", function() {
-    initTimer();
-    checkRsvpStatus();
-    resetStory(); // подготавливаем слайды
+    // Ничего не запускаем до первого взаимодействия, кроме подготовки слайдов
+    resetStory(); // подготовка точек
 });
