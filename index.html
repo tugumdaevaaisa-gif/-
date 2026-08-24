@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Максим & Диана — Пудровая нежность</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Фоновая музыка -->
+    <audio id="bg-music" src="ambient.mp3" loop preload="auto"></audio>
+
+    <!-- СЦЕНА 1: ОБЛОЖКА -->
+    <section class="scene active" id="scene-1">
+        <div class="cover-container">
+            <div class="cover-ornament">
+                <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+                    <!-- венок из роз (упрощённо) -->
+                    <circle cx="100" cy="100" r="80" stroke="#D4A5A5" stroke-width="1" fill="none" opacity="0.6"/>
+                    <circle cx="100" cy="100" r="70" stroke="#B08D57" stroke-width="0.5" fill="none" opacity="0.4"/>
+                    <path d="M100 30 Q 60 50 50 100 Q 60 150 100 170 Q 140 150 150 100 Q 140 50 100 30" stroke="#D4A5A5" stroke-width="2" fill="none"/>
+                </svg>
+                <span class="cover-badge">Свадебная история</span>
+                <h1 class="cover-names">
+                    <span class="name-block">Максим</span>
+                    <span class="ampersand">&</span>
+                    <span class="name-block">Диана</span>
+                </h1>
+                <p class="cover-date">12 сентября 2026</p>
+                <button class="btn-cover" onclick="nextScene(2)">
+                    <span class="btn-text">Открыть</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- СЦЕНА 2: АКВАРЕЛЬНАЯ ИСТОРИЯ (3 под-экрана, но для простоты — три слайда внутри одной сцены, переключаются кнопками или свайпом) -->
+    <section class="scene" id="scene-2">
+        <div class="story-slides">
+            <!-- Слайд 1 -->
+            <div class="story-slide active" id="story-1">
+                <div class="story-bg" style="background-image: url('photo/story-1.jpg');"></div>
+                <div class="story-overlay"></div>
+                <div class="story-caption">
+                    <p class="story-text">Всё началось осенью 2021-го.<br>Диана случайно пролила латте на ноутбук Максима.</p>
+                </div>
+            </div>
+            <!-- Слайд 2 -->
+            <div class="story-slide" id="story-2">
+                <div class="story-bg" style="background-image: url('photo/story-2.jpg');"></div>
+                <div class="story-overlay"></div>
+                <div class="story-caption">
+                    <p class="story-text">Два года проверки расстоянием —<br>и чувства стали только сильнее.</p>
+                </div>
+            </div>
+            <!-- Слайд 3 -->
+            <div class="story-slide" id="story-3">
+                <div class="story-bg" style="background-image: url('photo/story-3.jpg');"></div>
+                <div class="story-overlay"></div>
+                <div class="story-caption">
+                    <p class="story-text">Операция «Горный пик» —<br>и он сказал: «Выходи за меня».</p>
+                </div>
+            </div>
+            <!-- Управление слайдами -->
+            <button class="story-prev" onclick="changeStory(-1)">‹</button>
+            <button class="story-next" onclick="changeStory(1)">›</button>
+            <div class="story-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+            <button class="btn-gallery-next" onclick="nextScene(3)">Продолжить</button>
+        </div>
+    </section>
+
+    <!-- СЦЕНА 3: ПОЛЯРОИДНАЯ ТЕНЬ (проявляющиеся фото) -->
+    <section class="scene" id="scene-3">
+        <div class="gallery-container">
+            <div class="gallery-header">
+                <span class="gallery-subtitle">Наши моменты</span>
+                <h2 class="gallery-title">История в кадре</h2>
+                <p class="gallery-tip">Нажмите на фото, чтобы проявить его</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="revealPhoto(this)">
+                    <div class="photo-blur" style="background-image: url('photo/polaroid-1.jpg');"></div>
+                    <div class="photo-caption">Кофейный побег</div>
+                </div>
+                <div class="gallery-item" onclick="revealPhoto(this)">
+                    <div class="photo-blur" style="background-image: url('photo/polaroid-2.jpg');"></div>
+                    <div class="photo-caption">Тысячи километров</div>
+                </div>
+                <div class="gallery-item" onclick="revealPhoto(this)">
+                    <div class="photo-blur" style="background-image: url('photo/polaroid-3.jpg');"></div>
+                    <div class="photo-caption">Секретный заговор</div>
+                </div>
+                <div class="gallery-item" onclick="revealPhoto(this)">
+                    <div class="photo-blur" style="background-image: url('photo/polaroid-4.jpg');"></div>
+                    <div class="photo-caption">Идеальный туман</div>
+                </div>
+            </div>
+            <button class="btn-gallery-next" onclick="nextScene(4)">Дальше</button>
+        </div>
+    </section>
+
+    <!-- СЦЕНА 4: ПРИГЛАШЕНИЕ-СВИТОК -->
+    <section class="scene" id="scene-4">
+        <div class="scroll-container">
+            <div class="scroll-paper" id="scrollPaper">
+                <div class="scroll-inner">
+                    <span class="scroll-subtitle">Приглашение</span>
+                    <h1 class="scroll-names">Максим & Диана</h1>
+                    <div class="scroll-divider"></div>
+                    <p class="scroll-invitation">
+                        Дорогие близкие и друзья!<br>
+                        Приглашаем вас разделить с нами<br>
+                        начало нашей семейной истории.
+                    </p>
+                    <div class="scroll-date-box">
+                        <div class="date-item">
+                            <span class="date-num">12</span>
+                            <span class="date-month">сентября</span>
+                        </div>
+                        <div class="date-item border-left">
+                            <span class="date-num">2026</span>
+                            <span class="date-month">суббота</span>
+                        </div>
+                    </div>
+                    <div class="scroll-location">
+                        <span class="loc-title">Grand Palace Hall</span>
+                        <span class="loc-details">Сбор гостей в 16:00 // Начало в 17:00</span>
+                    </div>
+                    <button class="btn-scroll-next" onclick="nextScene(5)">Подтвердить присутствие</button>
+                </div>
+            </div>
+            <div class="scroll-handle scroll-handle-left"></div>
+            <div class="scroll-handle scroll-handle-right"></div>
+        </div>
+    </section>
+
+    <!-- СЦЕНА 5: RSVP ФОРМА (письмо в цветочной мастерской) -->
+    <section class="scene" id="scene-5">
+        <div class="rsvp-container">
+            <div class="rsvp-header">
+                <span class="rsvp-subtitle">Анкета гостя</span>
+                <p class="rsvp-text">Пожалуйста, ответьте на несколько вопросов ниже, чтобы мы могли сделать этот день идеальным.</p>
+            </div>
+            <form id="rsvp-form" class="rsvp-form" onsubmit="sendRsvp(event)">
+                <div class="form-group">
+                    <label class="group-label">Сможете ли вы разделить с нами этот праздник?</label>
+                    <div class="radio-tiles">
+                        <label class="tile-card">
+                            <input type="radio" name="attendance" value="Приду" required>
+                            <div class="tile-content">
+                                <span class="tile-title">Я приду</span>
+                            </div>
+                        </label>
+                        <label class="tile-card">
+                            <input type="radio" name="attendance" value="Не смогу">
+                            <div class="tile-content">
+                                <span class="tile-title">Не смогу</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="group-label" for="guest-name">Ваше имя и фамилия</label>
+                    <input type="text" id="guest-name" name="name" class="rsvp-input" placeholder="Иван Иванов" required>
+                </div>
+                <div class="form-group">
+                    <label class="group-label">Ваши предпочтения в напитках (можно несколько)</label>
+                    <div class="checkbox-tiles">
+                        <label class="tile-card-check">
+                            <input type="checkbox" name="drinks" value="Вино">
+                            <span class="check-custom"></span>
+                            <span class="check-text">Вино / Шампанское</span>
+                        </label>
+                        <label class="tile-card-check">
+                            <input type="checkbox" name="drinks" value="Виски">
+                            <span class="check-custom"></span>
+                            <span class="check-text">Виски / Коньяк</span>
+                        </label>
+                        <label class="tile-card-check">
+                            <input type="checkbox" name="drinks" value="Водка">
+                            <span class="check-custom"></span>
+                            <span class="check-text">Крепкие напитки</span>
+                        </label>
+                        <label class="tile-card-check">
+                            <input type="checkbox" name="drinks" value="Безалкогольные">
+                            <span class="check-custom"></span>
+                            <span class="check-text">Безалкогольные</span>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn-rsvp-submit">Отправить ответ</button>
+            </form>
+            <div id="rsvp-success" class="rsvp-success-message" style="display: none;">
+                <div class="success-icon">✨</div>
+                <h3>Спасибо за ваш ответ!</h3>
+                <p id="success-desc">Ваши данные успешно переданы молодоженам.</p>
+                <button type="button" class="btn-rsvp-submit" style="margin-top: 25px; width: auto; padding: 12px 30px;" onclick="nextScene(6)">Посмотреть таймер</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- СЦЕНА 6: СЕРДЕЧНЫЙ ТАЙМЕР -->
+    <section class="scene" id="scene-6">
+        <div class="timer-container">
+            <div class="timer-petals"></div>
+            <h2 class="timer-title">До встречи на свадьбе</h2>
+            <div class="wedding-timer">
+                <div class="timer-item">
+                    <span id="timer-days" class="timer-number">00</span>
+                    <span class="timer-label">дней</span>
+                </div>
+                <div class="timer-separator">:</div>
+                <div class="timer-item">
+                    <span id="timer-hours" class="timer-number">00</span>
+                    <span class="timer-label">часов</span>
+                </div>
+                <div class="timer-separator">:</div>
+                <div class="timer-item">
+                    <span id="timer-minutes" class="timer-number">00</span>
+                    <span class="timer-label">минут</span>
+                </div>
+                <div class="timer-separator">:</div>
+                <div class="timer-item">
+                    <span id="timer-seconds" class="timer-number">00</span>
+                    <span class="timer-label">секунд</span>
+                </div>
+            </div>
+            <div class="timer-divider"></div>
+            <div class="hashtag-box">
+                <span class="hashtag-label">Делитесь фото и видео с тегом:</span>
+                <div class="hashtag-value">#MaxAndDiana2026</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- СЦЕНА 7: ФИНАЛЬНЫЙ АККОРД -->
+    <section class="scene" id="scene-7">
+        <div class="final-container">
+            <div class="final-flower">🌸</div>
+            <h2 class="final-title">С любовью,<br>Максим и Диана</h2>
+            <p class="final-text">Спасибо, что вы с нами. Ждём вас в этот день!</p>
+            <button class="btn-final" onclick="restart()">Пересмотреть ещё раз</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
