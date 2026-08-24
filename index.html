@@ -7,12 +7,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Подключаем CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Фоновая музыка (замените путь) -->
+    <!-- Фоновая музыка (замените путь при необходимости) -->
     <audio id="bg-music" src="ambient.mp3" loop preload="auto"></audio>
 
     <!-- СЦЕНА 1: Обложка -->
@@ -128,75 +127,13 @@
                     <span class="loc-title">Grand Palace Hall</span>
                     <span class="loc-details">Сбор гостей в 16:00 // Начало в 17:00</span>
                 </div>
-                <button class="btn-primary btn-next-step" onclick="nextScene(5)">Подтвердить присутствие</button>
+                <button class="btn-primary btn-next-step" onclick="nextScene(5)">Перейти к таймеру</button>
             </div>
         </div>
     </section>
 
-    <!-- СЦЕНА 5: RSVP -->
+    <!-- СЦЕНА 5: Таймер до свадьбы -->
     <section class="scene" id="scene-5">
-        <div class="rsvp-container">
-            <div class="rsvp-header">
-                <span class="rsvp-subtitle">Анкета гостя</span>
-                <h2 class="rsvp-title">Пожалуйста, ответьте</h2>
-                <p class="rsvp-text">Ваши ответы помогут нам сделать этот день идеальным.</p>
-            </div>
-            <form id="rsvp-form" class="rsvp-form" onsubmit="sendRsvp(event)">
-                <div class="form-group">
-                    <label class="group-label">Сможете ли вы присутствовать?</label>
-                    <div class="radio-tiles">
-                        <label class="tile-card">
-                            <input type="radio" name="attendance" value="Приду" required>
-                            <div class="tile-content"><span class="tile-title">Я приду</span></div>
-                        </label>
-                        <label class="tile-card">
-                            <input type="radio" name="attendance" value="Не смогу">
-                            <div class="tile-content"><span class="tile-title">Не смогу</span></div>
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="group-label" for="guest-name">Ваше имя и фамилия</label>
-                    <input type="text" id="guest-name" name="name" class="rsvp-input" placeholder="Иван Иванов" required>
-                </div>
-                <div class="form-group">
-                    <label class="group-label">Предпочтения в напитках</label>
-                    <div class="checkbox-tiles">
-                        <label class="tile-card-check">
-                            <input type="checkbox" name="drinks" value="Вино">
-                            <span class="check-custom"></span>
-                            <span class="check-text">Вино / Шампанское</span>
-                        </label>
-                        <label class="tile-card-check">
-                            <input type="checkbox" name="drinks" value="Виски">
-                            <span class="check-custom"></span>
-                            <span class="check-text">Виски / Коньяк</span>
-                        </label>
-                        <label class="tile-card-check">
-                            <input type="checkbox" name="drinks" value="Водка">
-                            <span class="check-custom"></span>
-                            <span class="check-text">Крепкие напитки</span>
-                        </label>
-                        <label class="tile-card-check">
-                            <input type="checkbox" name="drinks" value="Безалкогольные">
-                            <span class="check-custom"></span>
-                            <span class="check-text">Безалкогольные</span>
-                        </label>
-                    </div>
-                </div>
-                <button type="submit" class="btn-submit">Отправить ответ</button>
-            </form>
-            <div id="rsvp-success" class="rsvp-success hidden">
-                <div class="success-icon">✨</div>
-                <h3>Спасибо за ваш ответ!</h3>
-                <p>Мы рады, что вы будете с нами!</p>
-                <button class="btn-primary" style="margin-top: 20px;" onclick="nextScene(6)">Посмотреть таймер</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- СЦЕНА 6: Таймер -->
-    <section class="scene" id="scene-6">
         <div class="bg-blobs"></div>
         <div class="timer-container">
             <h2 class="timer-title">До встречи на свадьбе</h2>
@@ -225,12 +162,12 @@
                 <span class="hashtag-label">Делитесь фото и видео с тегом:</span>
                 <div class="hashtag-value">#MaxAndDiana2026</div>
             </div>
-            <button class="btn-ghost" style="margin-top: 30px;" onclick="nextScene(7)">Завершить</button>
+            <button class="btn-ghost" style="margin-top: 30px;" onclick="nextScene(6)">Завершить</button>
         </div>
     </section>
 
-    <!-- СЦЕНА 7: Финальный аккорд -->
-    <section class="scene" id="scene-7">
+    <!-- СЦЕНА 6: Финал -->
+    <section class="scene" id="scene-6">
         <div class="final-container">
             <div class="final-flower">🌸</div>
             <h2 class="final-title">С любовью,<br>Максим и Диана</h2>
@@ -239,7 +176,6 @@
         </div>
     </section>
 
-    <!-- Подключаем JS -->
     <script src="script.js"></script>
 </body>
 </html>
