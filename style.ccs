@@ -1,4 +1,3 @@
-/* --- БАЗОВЫЕ СТИЛИ --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -11,12 +10,12 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden !important;
-    background-color: #F9F5F0; /* тёплый крем */
+    background-color: #FDF8F4;
     font-family: 'Jost', sans-serif;
     color: #4A4A4A;
 }
 
-/* Сцены */
+/* ===== СЦЕНЫ ===== */
 .scene {
     position: fixed;
     width: 100%;
@@ -42,94 +41,34 @@ body, html {
     filter: blur(0);
 }
 
-/* Кнопка "Дальше" общая */
-.btn-gallery-next {
+/* ===== ОБЩИЕ КНОПКИ ===== */
+.btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    background: linear-gradient(135deg, #D4A5A5, #B08D57);
+    gap: 10px;
+    background: linear-gradient(135deg, #E8C4C4, #C9A86A);
     color: #fff;
     border: none;
-    padding: 14px 32px;
+    padding: 16px 36px;
     border-radius: 50px;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 10px 30px rgba(212,165,165,0.3);
+    box-shadow: 0 10px 30px rgba(201, 168, 106, 0.3);
 }
 
-.btn-gallery-next:active {
+.btn-primary:active {
     transform: scale(0.95);
 }
 
-/* --- СЦЕНА 1: ОБЛОЖКА --- */
-.cover-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    background: radial-gradient(circle at 50% 40%, #F9F5F0, #F0E6E0);
-}
-
-.cover-ornament {
-    text-align: center;
-    position: relative;
-    max-width: 320px;
-    padding: 30px;
-}
-
-.cover-ornament svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.3;
-    pointer-events: none;
-}
-
-.cover-badge {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    color: #B08D57;
-    display: block;
-    margin-bottom: 20px;
-}
-
-.cover-names {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.2rem;
-    color: #4A4A4A;
-    line-height: 1.1;
-}
-
-.cover-names .name-block {
-    display: block;
-}
-
-.cover-names .ampersand {
-    font-style: italic;
-    font-size: 2rem;
-    color: #B08D57;
-    margin: 8px 0;
-}
-
-.cover-date {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    color: #8C7A6B;
-    letter-spacing: 2px;
-    margin: 30px 0;
-}
-
-.btn-cover {
+.btn-ghost {
     background: transparent;
-    border: 1px solid #B08D57;
-    color: #B08D57;
-    padding: 14px 36px;
+    border: 1px solid #C9A86A;
+    color: #C9A86A;
+    padding: 14px 34px;
     border-radius: 50px;
     font-size: 0.8rem;
     text-transform: uppercase;
@@ -138,26 +77,88 @@ body, html {
     transition: all 0.3s;
 }
 
-.btn-cover:active {
-    background: #B08D57;
+.btn-ghost:active {
+    background: #C9A86A;
     color: #fff;
 }
 
-/* --- СЦЕНА 2: АКВАРЕЛЬНАЯ ИСТОРИЯ --- */
-.story-slides {
+/* ===== ФОНОВЫЕ АКВАРЕЛЬНЫЕ ПЯТНА ===== */
+.bg-blobs {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(232, 196, 196, 0.3), transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(201, 168, 106, 0.2), transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(245, 225, 225, 0.4), transparent 60%);
+}
+
+/* ================= СЦЕНА 1: ОБЛОЖКА ================= */
+#scene-1 .cover-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.cover-ornament {
+    text-align: center;
+    max-width: 340px;
+    padding: 30px;
+}
+
+.cover-badge {
+    display: block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #C9A86A;
+    margin-bottom: 20px;
+}
+
+.cover-names {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    color: #4A4A4A;
+}
+
+.cover-names .ampersand {
+    font-style: italic;
+    font-size: 2.2rem;
+    color: #C9A86A;
+    display: block;
+    margin: 8px 0;
+}
+
+.cover-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: #8C7A6B;
+    letter-spacing: 3px;
+    margin: 25px 0 35px;
+}
+
+/* ================= СЦЕНА 2: ИСТОРИЯ (СЛАЙДЫ) ================= */
+#scene-2 .story-slides {
     position: relative;
     width: 100%;
     height: 100%;
+    z-index: 2;
 }
 
 .story-slide {
     position: absolute;
     inset: 0;
     opacity: 0;
-    transition: opacity 1s ease;
+    transition: opacity 0.8s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #FDF8F4;
 }
 
 .story-slide.active {
@@ -169,50 +170,62 @@ body, html {
     inset: 0;
     background-size: cover;
     background-position: center;
-    filter: brightness(0.7) blur(2px);
+    filter: brightness(0.65) saturate(1.1);
     transform: scale(1.05);
+    transition: filter 1s;
 }
 
 .story-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+    background: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.5));
 }
 
 .story-caption {
     position: relative;
     z-index: 2;
-    max-width: 80%;
+    max-width: 85%;
     text-align: center;
     color: #fff;
 }
 
 .story-text {
     font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     line-height: 1.4;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 12px rgba(0,0,0,0.35);
 }
 
-.story-prev, .story-next {
+.story-nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
+    background: rgba(255,255,255,0.3);
     border: none;
-    color: rgba(255,255,255,0.7);
-    font-size: 2.5rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.8rem;
     cursor: pointer;
     z-index: 10;
-    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+    transition: background 0.3s;
 }
 
-.story-prev { left: 10px; }
-.story-next { right: 10px; }
+.story-nav:active {
+    background: rgba(255,255,255,0.6);
+}
+
+.story-prev { left: 15px; }
+.story-next { right: 15px; }
 
 .story-dots {
     position: absolute;
-    bottom: 100px;
+    bottom: 90px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -221,27 +234,38 @@ body, html {
 }
 
 .dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: rgba(255,255,255,0.4);
     cursor: pointer;
+    transition: all 0.3s;
 }
 
 .dot.active {
-    background: #fff;
+    background: #C9A86A;
     transform: scale(1.3);
 }
 
-/* --- СЦЕНА 3: ПОЛЯРОИДНАЯ ТЕНЬ --- */
-.gallery-container {
+.story-next-btn {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+}
+
+/* ================= СЦЕНА 3: ГАЛЕРЕЯ ================= */
+#scene-3 .gallery-container {
     height: 100%;
-    background: #F9F5F0;
     padding: 30px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: #FDF8F4;
+    position: relative;
+    z-index: 2;
 }
 
 .gallery-header {
@@ -250,28 +274,30 @@ body, html {
 }
 
 .gallery-subtitle {
+    display: block;
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 4px;
-    color: #B08D57;
+    color: #C9A86A;
+    margin-bottom: 8px;
 }
 
 .gallery-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    margin: 5px 0;
+    font-size: 2rem;
     color: #4A4A4A;
 }
 
 .gallery-tip {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: #8C7A6B;
+    margin-top: 8px;
 }
 
 .gallery-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 15px;
     width: 100%;
     max-width: 360px;
     margin-bottom: 30px;
@@ -281,9 +307,10 @@ body, html {
     position: relative;
     aspect-ratio: 1;
     overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
     cursor: pointer;
+    background: #F1E9E3;
 }
 
 .photo-blur {
@@ -291,8 +318,8 @@ body, html {
     inset: 0;
     background-size: cover;
     background-position: center;
-    filter: blur(8px) brightness(0.8);
-    transition: filter 0.8s ease;
+    filter: blur(6px) brightness(0.75);
+    transition: filter 0.6s ease;
 }
 
 .gallery-item.revealed .photo-blur {
@@ -304,87 +331,90 @@ body, html {
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 8px 12px;
-    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    padding: 10px 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
     color: #fff;
     font-size: 0.75rem;
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 0.4s;
 }
 
 .gallery-item.revealed .photo-caption {
     opacity: 1;
 }
 
-/* --- СЦЕНА 4: ПРИГЛАШЕНИЕ-СВИТОК --- */
-.scroll-container {
+/* ================= СЦЕНА 4: ПРИГЛАШЕНИЕ ================= */
+#scene-4 .invitation-container {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #F0E6E0;
-    padding: 20px;
-    position: relative;
-}
-
-.scroll-paper {
-    width: 100%;
-    max-width: 320px;
-    background: #FDF8F4;
-    border-radius: 4px;
-    padding: 40px 24px;
-    box-shadow: 0 15px 50px rgba(0,0,0,0.15);
-    text-align: center;
+    padding: 30px;
     position: relative;
     z-index: 2;
 }
 
-.scroll-inner {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s ease 0.5s, transform 1s ease 0.5s;
+.invitation-card {
+    background: #FDF8F4;
+    border-radius: 20px;
+    padding: 50px 30px;
+    max-width: 320px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    border: 1px solid rgba(201,168,106,0.2);
+    position: relative;
+    overflow: hidden;
 }
 
-.scroll-container.active .scroll-inner {
-    opacity: 1;
-    transform: translateY(0);
+.invitation-card::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(232,196,196,0.4), transparent 70%);
 }
 
-.scroll-subtitle {
+.invitation-subtitle {
+    display: block;
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 4px;
-    color: #B08D57;
+    color: #C9A86A;
+    margin-bottom: 15px;
 }
 
-.scroll-names {
+.invitation-names {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin: 15px 0;
+    font-size: 2.2rem;
     color: #4A4A4A;
+    margin-bottom: 20px;
 }
 
-.scroll-divider {
+.invitation-divider {
     width: 60px;
     height: 1px;
-    background: linear-gradient(to right, transparent, #B08D57, transparent);
-    margin: 15px auto;
+    background: linear-gradient(to right, transparent, #C9A86A, transparent);
+    margin: 20px auto;
 }
 
-.scroll-invitation {
+.invitation-text {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: 1.1rem;
     color: #6B5B4E;
+    line-height: 1.5;
+    margin-bottom: 25px;
 }
 
-.scroll-date-box {
+.invitation-date-box {
     display: flex;
     justify-content: center;
+    border-top: 1px solid rgba(201,168,106,0.3);
+    border-bottom: 1px solid rgba(201,168,106,0.3);
+    padding: 15px 0;
     margin: 25px 0;
-    border-top: 1px solid rgba(176,141,87,0.3);
-    border-bottom: 1px solid rgba(176,141,87,0.3);
-    padding: 10px 0;
 }
 
 .date-item {
@@ -392,14 +422,14 @@ body, html {
 }
 
 .date-item.border-left {
-    border-left: 1px solid rgba(176,141,87,0.3);
+    border-left: 1px solid rgba(201,168,106,0.3);
 }
 
 .date-num {
     font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     display: block;
-    color: #B08D57;
+    color: #C9A86A;
 }
 
 .date-month {
@@ -409,14 +439,14 @@ body, html {
     color: #8C7A6B;
 }
 
-.scroll-location {
+.invitation-location {
     margin: 20px 0;
 }
 
 .loc-title {
+    display: block;
     font-family: 'Playfair Display', serif;
     font-size: 1.2rem;
-    display: block;
     color: #4A4A4A;
 }
 
@@ -427,55 +457,21 @@ body, html {
     letter-spacing: 1px;
 }
 
-.btn-scroll-next {
-    background: linear-gradient(135deg, #D4A5A5, #B08D57);
-    border: none;
-    color: #fff;
-    padding: 12px 26px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: transform 0.3s;
+.btn-next-step {
+    margin-top: 25px;
 }
 
-.btn-scroll-next:active {
-    transform: scale(0.95);
-}
-
-/* Декоративные ручки свитка (древки) */
-.scroll-handle {
-    position: absolute;
-    width: 80px;
-    height: 300px;
-    background: linear-gradient(to right, #C9A86A, #E0C58E, #C9A86A);
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-}
-
-.scroll-handle-left {
-    left: 10%;
-    transform: rotate(90deg);
-    transform-origin: center;
-}
-
-.scroll-handle-right {
-    right: 10%;
-    transform: rotate(90deg);
-    transform-origin: center;
-}
-
-/* --- СЦЕНА 5: RSVP --- */
-.rsvp-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 40px 20px;
+/* ================= СЦЕНА 5: RSVP ================= */
+#scene-5 .rsvp-container {
     height: 100%;
     overflow-y: auto;
-    background: #F9F5F0;
+    padding: 40px 20px;
+    background: #FDF8F4;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .rsvp-header {
@@ -484,22 +480,30 @@ body, html {
 }
 
 .rsvp-subtitle {
+    display: block;
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 3px;
-    color: #B08D57;
+    color: #C9A86A;
+    margin-bottom: 8px;
+}
+
+.rsvp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
 }
 
 .rsvp-text {
     font-size: 0.85rem;
     color: #8C7A6B;
-    margin-top: 10px;
+    line-height: 1.5;
 }
 
 .rsvp-form {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 22px;
 }
 
 .form-group {
@@ -531,21 +535,17 @@ body, html {
 }
 
 .tile-content {
-    border: 1px solid #D4A5A5;
+    border: 1px solid #E8C4C4;
     padding: 14px;
     text-align: center;
-    border-radius: 8px;
+    border-radius: 10px;
     background: #fff;
     transition: all 0.3s;
 }
 
 .tile-card input[type="radio"]:checked + .tile-content {
-    background: #D4A5A5;
-    border-color: #D4A5A5;
-}
-
-.tile-card input[type="radio"]:checked + .tile-content .tile-title {
-    color: #fff;
+    background: #E8C4C4;
+    border-color: #E8C4C4;
 }
 
 .tile-title {
@@ -557,16 +557,16 @@ body, html {
 .rsvp-input {
     width: 100%;
     padding: 14px;
-    border: 1px solid #D2CBC0;
+    border: 1px solid #E8C4C4;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 0.9rem;
     outline: none;
     transition: border-color 0.3s;
 }
 
 .rsvp-input:focus {
-    border-color: #B08D57;
+    border-color: #C9A86A;
 }
 
 .checkbox-tiles {
@@ -581,8 +581,8 @@ body, html {
     gap: 12px;
     background: #fff;
     padding: 12px 14px;
-    border-radius: 8px;
-    border: 1px solid #D2CBC0;
+    border-radius: 10px;
+    border: 1px solid #E8C4C4;
     cursor: pointer;
     position: relative;
 }
@@ -593,16 +593,17 @@ body, html {
 }
 
 .check-custom {
-    width: 18px;
-    height: 18px;
-    border: 1px solid #B08D57;
-    border-radius: 50%; /* круглый, как лепесток */
+    width: 20px;
+    height: 20px;
+    border: 2px solid #C9A86A;
+    border-radius: 50%;
     position: relative;
     transition: all 0.3s;
 }
 
 .tile-card-check input[type="checkbox"]:checked + .check-custom {
-    background: #B08D57;
+    background: #C9A86A;
+    border-color: #C9A86A;
     box-shadow: inset 0 0 0 3px #fff;
 }
 
@@ -611,11 +612,11 @@ body, html {
     color: #4A4A4A;
 }
 
-.btn-rsvp-submit {
-    background: #234137;
+.btn-submit {
+    background: #C9A86A;
     color: #fff;
     border: none;
-    padding: 15px;
+    padding: 16px;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -624,11 +625,11 @@ body, html {
     transition: background 0.3s;
 }
 
-.btn-rsvp-submit:active {
-    background: #162a23;
+.btn-submit:active {
+    background: #B08D57;
 }
 
-.rsvp-success-message {
+.rsvp-success {
     text-align: center;
     padding: 40px 20px;
 }
@@ -638,43 +639,23 @@ body, html {
     margin-bottom: 15px;
 }
 
-/* --- СЦЕНА 6: ТАЙМЕР --- */
-.timer-container {
+/* ================= СЦЕНА 6: ТАЙМЕР ================= */
+#scene-6 .timer-container {
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(circle at 50% 50%, #F9F5F0, #F0E6E0);
-    padding: 20px;
+    background: #FDF8F4;
+    padding: 30px;
     position: relative;
-    overflow: hidden;
-}
-
-.timer-petals {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(circle, rgba(212,165,165,0.3) 2px, transparent 2px);
-    background-size: 30px 30px;
-    animation: petalsFloat 15s infinite linear;
-    opacity: 0.4;
-    pointer-events: none;
-}
-
-@keyframes petalsFloat {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0); }
+    z-index: 2;
 }
 
 .timer-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    color: #4A4A4A;
-    margin-bottom: 20px;
+    font-size: 2rem;
+    margin-bottom: 25px;
 }
 
 .wedding-timer {
@@ -682,13 +663,11 @@ body, html {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    width: 100%;
-    max-width: 320px;
-    background: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.7);
     border-radius: 20px;
-    padding: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    padding: 25px 20px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 .timer-item {
@@ -700,13 +679,13 @@ body, html {
 
 .timer-number {
     font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    color: #B08D57;
+    font-size: 2.8rem;
+    color: #C9A86A;
     line-height: 1;
 }
 
 .timer-label {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #8C7A6B;
@@ -715,51 +694,48 @@ body, html {
 
 .timer-separator {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    color: #D4A5A5;
+    font-size: 2.2rem;
+    color: #E8C4C4;
     margin-bottom: 15px;
 }
 
-.timer-divider {
-    width: 50px;
-    height: 1px;
-    background: #B08D57;
-    margin: 30px auto;
-}
-
 .hashtag-box {
+    margin-top: 40px;
     background: #fff;
-    border: 1px dashed #B08D57;
-    padding: 14px 24px;
+    border: 1px dashed #C9A86A;
+    padding: 15px 30px;
     border-radius: 30px;
+    text-align: center;
 }
 
 .hashtag-label {
     display: block;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     color: #8C7A6B;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .hashtag-value {
     font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: #4A4A4A;
     font-weight: 500;
 }
 
-/* --- СЦЕНА 7: ФИНАЛ --- */
-.final-container {
+/* ================= СЦЕНА 7: ФИНАЛ ================= */
+#scene-7 .final-container {
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, #F9F5F0, #F0E6E0);
+    background: linear-gradient(to bottom, #FDF8F4, #F9E9E9);
     padding: 30px;
     text-align: center;
+    position: relative;
+    z-index: 2;
 }
 
 .final-flower {
@@ -775,7 +751,7 @@ body, html {
 
 .final-title {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: #4A4A4A;
     line-height: 1.2;
     margin-bottom: 15px;
@@ -787,20 +763,24 @@ body, html {
     margin-bottom: 30px;
 }
 
-.btn-final {
-    background: transparent;
-    border: 1px solid #B08D57;
-    color: #B08D57;
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s;
+/* ===== МЕДИА-ЗАПРОС ДЛЯ ДЕСКТОПА ===== */
+@media (min-width: 768px) {
+    .cover-names {
+        font-size: 5rem;
+    }
+    .story-text {
+        font-size: 2rem;
+    }
+    .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 600px;
+    }
+    .invitation-card {
+        max-width: 400px;
+    }
 }
 
-.btn-final:active {
-    background: #B08D57;
-    color: #fff;
+/* Утилита для скрытия элементов */
+.hidden {
+    display: none !important;
 }
