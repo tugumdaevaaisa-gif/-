@@ -16,81 +16,66 @@ function nextScene(sceneNumber) {
     const nextSceneElement = document.getElementById(`scene-${sceneNumber}`);
     if (nextSceneElement) {
         nextSceneElement.classList.add('active');
-        // Особые действия при активации некоторых сцен
-        if (sceneNumber === 5) checkRsvpStatusOnScene5();
-        if (sceneNumber === 4) scrollAnimation();
-        if (sceneNumber === 2) initStorySlides();
+        // Особые действия при активации
+        if (sceneNumber === 2) resetStory();
+        if (sceneNumber === 5) checkRsvpStatus();
     }
 }
 
-// ----------------- СЦЕНА 2: СЛАЙДЫ ИСТОРИИ -----------------
-let currentStoryIndex = 0;
-const storySlides = document.querySelectorAll('.story-slide');
-const dots = document.querySelectorAll('.dot');
+// ----------------- СЛАЙДЫ ИСТОРИИ -----------------
+let currentSlide = 0;
+const slides = document.querySelectorAll('.story-slide');
+const dotsContainer = document.querySelector('.story-dots');
 
-function changeStory(direction) {
-    storySlides[currentStoryIndex].classList.remove('active');
-    dots[currentStoryIndex].classList.remove('active');
-    currentStoryIndex = (currentStoryIndex + direction + storySlides.length) % storySlides.length;
-    storySlides[currentStoryIndex].classList.add('active');
-    dots[currentStoryIndex].classList.add('active');
-}
-
-function initStorySlides() {
-    // Сброс на первый слайд при каждом входе
-    currentStoryIndex = 0;
-    storySlides.forEach((slide, idx) => {
-        slide.classList.toggle('active', idx === 0);
-    });
-    dots.forEach((dot, idx) => {
-        dot.classList.toggle('active', idx === 0);
-    });
-}
-
-// Клик по точкам
-dots.forEach((dot, idx) => {
-    dot.addEventListener('click', () => {
-        storySlides[currentStoryIndex].classList.remove('active');
-        dots[currentStoryIndex].classList.remove('active');
-        currentStoryIndex = idx;
-        storySlides[idx].classList.add('active');
-        dots[idx].classList.add('active');
-    });
+// Создаём точки
+slides.forEach((_, idx) => {
+    const dot = document.createElement('span');
+    dot.classList.add('dot');
+    dot.addEventListener('click', () => goToSlide(idx));
+    dotsContainer.appendChild(dot);
 });
 
-// ----------------- СЦЕНА 3: ПРОЯВЛЕНИЕ ФОТО -----------------
+const dots = document.querySelectorAll('.dot');
+
+function goToSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = index;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+}
+
+function changeStory(direction) {
+    goToSlide((currentSlide + direction + slides.length) % slides.length);
+}
+
+// Сброс слайдов при входе на сцену 2
+function resetStory() {
+    goToSlide(0);
+}
+
+// ----------------- ГАЛЕРЕЯ (проявление фото) -----------------
 function revealPhoto(item) {
     item.classList.add('revealed');
-    // Можно добавить анимацию для соседних фото (их размытие уменьшается)
 }
 
-// ----------------- СЦЕНА 4: СВИТОК (анимация появления текста) -----------------
-function scrollAnimation() {
-    const paper = document.getElementById('scrollPaper');
-    paper.classList.add('active');
-    // Активация класса .active у контейнера сцены уже происходит через .scene.active,
-    // поэтому стили .scroll-container.active .scroll-inner сработают автоматически.
-}
-
-// ----------------- СЦЕНА 5: RSVP -----------------
-function checkRsvpStatusOnScene5() {
+// ----------------- RSVP -----------------
+function checkRsvpStatus() {
     const form = document.getElementById('rsvp-form');
-    const successMessage = document.getElementById('rsvp-success');
+    const success = document.getElementById('rsvp-success');
     if (localStorage.getItem("rsvp_submitted") === "true") {
-        form.style.display = 'none';
-        successMessage.style.display = 'block';
-        const successTitle = successMessage.querySelector('h3');
-        const successDesc = document.getElementById('success-desc');
-        if (successTitle) successTitle.textContent = 'Вы уже оставили свой ответ!';
-        if (successDesc) successDesc.textContent = 'Рады, что вы будете с нами в этот важный день.';
+        form.classList.add('hidden');
+        success.classList.remove('hidden');
+        success.querySelector('h3').textContent = 'Вы уже ответили!';
+        success.querySelector('p').textContent = 'Рады видеть вас на нашем празднике.';
     }
 }
 
 function sendRsvp(event) {
     event.preventDefault();
     const form = document.getElementById('rsvp-form');
-    const successMessage = document.getElementById('rsvp-success');
-    const submitButton = form.querySelector('.btn-rsvp-submit');
+    const success = document.getElementById('rsvp-success');
+    const submitButton = form.querySelector('.btn-submit');
 
     if (localStorage.getItem("rsvp_submitted") === "true") {
         alert("Вы уже отправляли ответ с этого устройства.");
@@ -100,7 +85,7 @@ function sendRsvp(event) {
     if (submitButton) submitButton.disabled = true;
 
     const formData = new FormData(form);
-    formData.append("access_key", "e7d0e149-5d47-4ca0-b82c-73d5806cbdd1");
+    formData.append("access_key", "e7d0e149-5d47-4ca0-b82c-73d5806cbdd1"); // ваш ключ
     formData.append("subject", "Новый ответ RSVP на свадьбу Максима и Дианы!");
 
     const drinks = [];
@@ -116,8 +101,10 @@ function sendRsvp(event) {
     .then(async (response) => {
         if (response.status === 200) {
             localStorage.setItem("rsvp_submitted", "true");
-            form.style.display = 'none';
-            successMessage.style.display = 'block';
+            form.classList.add('hidden');
+            success.classList.remove('hidden');
+            success.querySelector('h3').textContent = 'Спасибо за ваш ответ!';
+            success.querySelector('p').textContent = 'Ваши данные успешно переданы.';
         } else {
             let json = await response.json();
             alert("Ошибка: " + json.message);
@@ -130,8 +117,8 @@ function sendRsvp(event) {
     });
 }
 
-// ----------------- СЦЕНА 6: ТАЙМЕР -----------------
-function initWeddingTimer() {
+// ----------------- ТАЙМЕР -----------------
+function initTimer() {
     const weddingDate = new Date("September 12, 2026 17:00:00").getTime();
     const timerInterval = setInterval(updateTimer, 1000);
 
@@ -162,16 +149,15 @@ function initWeddingTimer() {
 
 // ----------------- ПЕРЕЗАПУСК -----------------
 function restart() {
-    // Сброс всех сцен и показ первой
     document.querySelectorAll('.scene').forEach(scene => scene.classList.remove('active'));
     document.getElementById('scene-1').classList.add('active');
-    // Если нужно сбросить RSVP, раскомментируйте:
+    // Сбросить RSVP (если нужно) – закомментируйте, если не требуется
     // localStorage.removeItem("rsvp_submitted");
 }
 
-// Инициализация при загрузке
+// Инициализация
 document.addEventListener("DOMContentLoaded", function() {
-    initWeddingTimer();
-    checkRsvpStatusOnScene5();
-    initStorySlides(); // подготовка слайдов
+    initTimer();
+    checkRsvpStatus();
+    resetStory(); // подготавливаем слайды
 });
